@@ -4,7 +4,7 @@ from flask_login import LoginManager, UserMixin, login_user, logout_user, login_
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret_key'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://username:password@localhost/blog'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://myuser@localhost/myblog'
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 
@@ -110,4 +110,6 @@ def logout():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    with app.app_context():
+        db.create_all()
+    app.run(debug=True, port=9999)
