@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Blog</title>
+</head>
+<body>
+    <h1>My Blog</h1>
+    {% for post in posts %}
+    <div>
+        <h2><a href="{{ url_for('post', id=post.id) }}">{{ post.title }}</a></h2>
+        <p>{{ post.content }}</p>
+        <p>By {{ post.author.username }}</p>
+    </div>
+    {% endfor %}
+    {% if current_user.is_authenticated %}
+    <a href="{{ url_for('new') }}">New Post</a>
+    {% endif %}
+</body>
+</html>
